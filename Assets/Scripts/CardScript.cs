@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CardScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float _localProgress = 0;
+    
+
     void Start()
     {
         
