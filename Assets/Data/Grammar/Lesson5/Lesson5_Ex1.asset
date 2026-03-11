@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab312ceb3e16c4c4ea19ab7534f28c0a, type: 3}
   m_Name: Lesson5_Ex1
   m_EditorClassIdentifier: Assembly-CSharp::GrammarExerciseData
-  taskTitle: "\u0417\u0430\u0434\u0430\u043D\u0438\u0435 5"
+  taskTitle: "\u0417\u0430\u0434\u0430\u043D\u0438\u0435 1"
   hint: "\u4ED6\u53BB\u5E02\u573A\u5DF2\u7ECF\u8D70\u4E86\u5341\u5206\u949F\u4E86\u3002"
   shuffledWords:
   - "\u041E\u043D"

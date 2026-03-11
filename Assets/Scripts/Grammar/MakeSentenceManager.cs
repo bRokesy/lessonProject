@@ -17,26 +17,25 @@ public class MakeSentenceManager : MonoBehaviour
     [Header("Prefabs")]
     public GameObject wordChipPrefab;
 
-    [Header("Exercise Data")]
-    public MakeSentenceData makeSentenceData;
-
     private List<DraggableWord> spawnedChips = new List<DraggableWord>();
+    private MakeSentenceData currentData; 
 
     void Start()
     {
-        LoadExercise(makeSentenceData);
         checkButton.onClick.AddListener(CheckAnswer);
         resetButton.onClick.AddListener(ResetExercise);
     }
-    
+
     public void LoadExercise(MakeSentenceData data)
     {
+        currentData = data; // ← сохраняем
+
         feedbackText.text = "";
         taskLabel.text = data.taskTitle;
         hintLabel.text = data.hint;
 
         ClearAll();
-        
+
         var shuffledData = data.GetShuffled();
 
         foreach (string word in shuffledData)
@@ -57,6 +56,8 @@ public class MakeSentenceManager : MonoBehaviour
 
     public void CheckAnswer()
     {
+        if (currentData == null) return;
+
         List<string> playerWords = new List<string>();
 
         foreach (Transform child in answerZone)
@@ -69,16 +70,22 @@ public class MakeSentenceManager : MonoBehaviour
         string playerSentence = string.Join(" ", playerWords).Trim();
         bool correct = false;
 
-        foreach (string sentence in makeSentenceData.correctSentences)
+        foreach (string sentence in currentData.correctSentences)
         {
             if (sentence == playerSentence)
             {
                 correct = true;
+                break;
             }
         }
 
         feedbackText.text = correct ? "Правильно!" : "Попробуйте ещё раз";
         feedbackText.color = correct ? Color.green : Color.red;
+
+        if (correct)
+        {
+            GrammarProgressManager.instance.NextExercise();
+        }
     }
 
     public void ResetExercise()

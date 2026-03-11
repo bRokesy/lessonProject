@@ -20,15 +20,11 @@ public class FillBlankManager : MonoBehaviour
     public GameObject textChunkPrefab;
     public GameObject slotPrefab;
 
-    [Header("Exercise Data")]
-    public FillBlankData exerciseData;
-
     private List<DraggableWord> spawnedChips = new List<DraggableWord>();
     private List<BlankSlot> spawnedSlots     = new List<BlankSlot>();
 
     void Start()
     {
-        LoadExercise(exerciseData);
         checkButton.onClick.AddListener(CheckAnswer);
         resetButton.onClick.AddListener(ResetExercise);
     }
@@ -110,6 +106,11 @@ public class FillBlankManager : MonoBehaviour
             ? "Правильно!"
             : $"Правильно {correct} из {spawnedSlots.Count}";
         feedbackText.color = allCorrect ? Color.green : Color.red;
+
+        if (allCorrect)
+        {
+            GrammarProgressManager.instance.NextExercise();
+        }
     }
 
     public void ResetExercise()
