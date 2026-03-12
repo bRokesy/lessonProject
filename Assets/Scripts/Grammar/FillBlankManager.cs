@@ -109,7 +109,7 @@ public class FillBlankManager : MonoBehaviour
 
         if (allCorrect)
         {
-            GrammarProgressManager.instance.NextExercise();
+            ProgressManager.Instance.NextExercise();
         }
     }
 

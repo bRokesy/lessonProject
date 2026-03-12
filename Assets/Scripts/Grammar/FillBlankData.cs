@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Fill Blank Data", fileName = "NewFillBlank")]
+[CreateAssetMenu(menuName = "Lessong Data/Fill Blank Data", fileName = "NewFillBlank")]
 public class FillBlankData : ScriptableObject
 {
     [Header("Display")]

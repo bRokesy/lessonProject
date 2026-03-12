@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "MakeSentence Data", fileName = "NewMakeSentence")]
+[CreateAssetMenu(menuName = "Lesson Data/Make Sentence Data", fileName = "NewMakeSentence")]
 public class MakeSentenceData : ScriptableObject
 {
     [Header("Display")]

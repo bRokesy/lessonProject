@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d41a317c25b604483e6ad55bbda19e, type: 3}
+  m_Name: Lesson1_Ex1
+  m_EditorClassIdentifier: Assembly-CSharp::FlashcardDeckData
+  cards:
+  - foreignWord: "\u82F9\u679C"
+    translation: "\u044F\u0431\u043B\u043E\u043A\u043E"
+    image: {fileID: 0}
+  - foreignWord: "\u5546\u5E97"
+    translation: "\u043C\u0430\u0433\u0430\u0437\u0438\u043D"
+    image: {fileID: 0}
+  - foreignWord: "\u5BB6\u5EAD"
+    translation: "\u0441\u0435\u043C\u044C\u044F"
+    image: {fileID: 0}

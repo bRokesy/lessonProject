@@ -2,22 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class TranslationQuizController : MonoBehaviour
+public class TranslationQuizController : MonoBehaviour, IExerciseController
 {
-    [System.Serializable]
-    public class Question
-    {
-        public string foreignWord;
-        public string correctTranslation;
-        public string[] options;
-    }
-
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI wordText;
     [SerializeField] private Transform optionsParent;
-    [SerializeField] private OptionButtonUI optionButtonPrefab;
+    [SerializeField] private GameObject optionButtonPrefab;
     [SerializeField] private TextMeshProUGUI progressText;
+
+    [Header("Image (опционально)")]
+    [SerializeField] private Image questionImage;
+    [SerializeField] private GameObject imageContainer; // скрывается целиком если картинки нет
 
     [Header("Behavior")]
     [SerializeField] private float delayBeforeNext = 1.2f;
@@ -25,81 +22,60 @@ public class TranslationQuizController : MonoBehaviour
     private List<OptionButtonUI> spawned = new();
     private int index = 0;
     private bool answered = false;
+    private TranslateData currentData;
 
-    // ✅ МАССИВ ЗАПОЛНЕН ЗДЕСЬ
-    private Question[] questions =
+    void Start()
     {
-        new Question
-        {
-            foreignWord = "apple",
-            correctTranslation = "яблоко",
-            options = new [] { "яблоко", "груша", "банан", "апельсин" }
-        },
-        new Question
-        {
-            foreignWord = "dog",
-            correctTranslation = "собака",
-            options = new [] { "кошка", "собака", "птица", "рыба" }
-        },
-        new Question
-        {
-            foreignWord = "house",
-            correctTranslation = "дом",
-            options = new [] { "школа", "квартира", "дом", "магазин" }
-        },
-        new Question
-        {
-            foreignWord = "car",
-            correctTranslation = "машина",
-            options = new [] { "велосипед", "самолёт", "машина", "поезд" }
-        },
-        new Question
-        {
-            foreignWord = "water",
-            correctTranslation = "вода",
-            options = new [] { "молоко", "сок", "вода", "чай" }
-        }
-    };
+        if (currentData != null)
+            LoadExercise(currentData);
+    }
 
-    private void Start()
+    public void LoadExercise(TranslateData data)
     {
+        currentData = data;
+        index = 0;
+        answered = false;
         ShowQuestion();
     }
 
     private void ShowQuestion()
     {
-		if (optionButtonPrefab == null)
-		{
-    	Debug.LogError("optionButtonPrefab НЕ назначен в инспекторе!");
-   		return;
-		}
-		if (optionsParent == null)
-		{
-    	Debug.LogError("optionsParent НЕ назначен в инспекторе!");
-   		return;
-		}
-        ClearOptions();
+        if (optionButtonPrefab == null) { Debug.LogError("optionButtonPrefab не назначен!"); return; }
+        if (optionsParent == null)      { Debug.LogError("optionsParent не назначен!");      return; }
+
         answered = false;
 
-        if (index >= questions.Length)
+        if (currentData == null || index >= currentData.questions.Count)
         {
             Finish();
             return;
         }
 
-        var q = questions[index];
-
+        var q = currentData.questions[index];
         wordText.text = q.foreignWord;
 
         if (progressText)
-            progressText.text = $"{index + 1}/{questions.Length}";
+            progressText.text = $"{index + 1}/{currentData.questions.Count}";
+
+        // Картинка — показать если есть, скрыть если нет
+        if (questionImage != null)
+        {
+            bool hasImage = q.image != null;
+            questionImage.sprite = hasImage ? q.image : null;
+
+            if (imageContainer != null)
+                imageContainer.SetActive(hasImage);
+            else
+                questionImage.gameObject.SetActive(hasImage);
+        }
 
         foreach (var opt in q.options)
         {
             var btn = Instantiate(optionButtonPrefab);
-			btn.transform.SetParent(optionsParent, false);
-			btn.Setup(opt, OnOptionClicked);
-			spawned.Add(btn);
+            var btnUI = btn.GetComponent<OptionButtonUI>();
+            btn.transform.SetParent(optionsParent, false);
+            btnUI.Setup(opt, OnOptionClicked);
+            spawned.Add(btnUI);
         }
     }
 
@@ -108,20 +84,16 @@ public class TranslationQuizController : MonoBehaviour
         if (answered) return;
         answered = true;
 
-        var q = questions[index];
-
-        bool isCorrect = clicked.Value.Trim().ToLower() ==
-                         q.correctTranslation.Trim().ToLower();
+        var q = currentData.questions[index];
+        bool isCorrect = clicked.Value.Trim().ToLower() == q.correctTranslation.Trim().ToLower();
 
         if (isCorrect) clicked.SetCorrect();
-        else clicked.SetWrong();
+        else           clicked.SetWrong();
 
         foreach (var btn in spawned)
         {
             btn.SetInteractable(false);
-
-            if (btn.Value.Trim().ToLower() ==
-                q.correctTranslation.Trim().ToLower())
+            if (btn.Value.Trim().ToLower() == q.correctTranslation.Trim().ToLower())
                 btn.SetCorrect();
         }
 
@@ -135,21 +107,26 @@ public class TranslationQuizController : MonoBehaviour
         ShowQuestion();
     }
 
+    private IEnumerator DestroyAfterDelay()
+    {
+        yield return new WaitForSeconds(ProgressManager.Instance.nextExerciseDelay);
+        ClearOptions();
+    }
+
     private void Finish()
     {
-        ClearOptions();
-        wordText.text = "Готово! ✅";
-
-        if (progressText)
-            progressText.text = $"{questions.Length}/{questions.Length}";
+        StartCoroutine(DestroyAfterDelay());
+        ProgressManager.Instance.NextExercise();
+        if (progressText && currentData != null)
+            progressText.text = $"{currentData.questions.Count}/{currentData.questions.Count}";
     }
 
     private void ClearOptions()
     {
         foreach (var btn in spawned)
-            if (btn != null)
-                Destroy(btn.gameObject);
-
+            if (btn != null) Destroy(btn.gameObject);
         spawned.Clear();
     }
+
+    public void OnExerciseLeave() => ClearOptions();
 }

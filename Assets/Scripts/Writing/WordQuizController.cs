@@ -1,29 +1,23 @@
 using UnityEngine;
-using System.Text.RegularExpressions;
 
 [RequireComponent(typeof(WordQuizModel))]
 [RequireComponent(typeof(WordQuizView))]
 [RequireComponent(typeof(AudioSource))]
 public class WordQuizController : MonoBehaviour
 {
-    public enum PlayMode
-    {
-        Random,
-        Sequential
-    }
+    public enum PlayMode { Random, Sequential }
 
     [SerializeField] private PlayMode playMode = PlayMode.Random;
 
     private WordQuizModel model;
     private WordQuizView view;
     private AudioSource audioSource;
-
     private int currentClipIndex = 0;
 
     private void Awake()
     {
         model = GetComponent<WordQuizModel>();
-        view = GetComponent<WordQuizView>();
+        view  = GetComponent<WordQuizView>();
         audioSource = GetComponent<AudioSource>();
 
         view.InputField.onEndEdit.AddListener(CheckAnswer);
@@ -33,29 +27,25 @@ public class WordQuizController : MonoBehaviour
     {
         view.InputField.onEndEdit.RemoveListener(CheckAnswer);
     }
+    
+    public void LoadExercise(WritingData data)
+    {
+        model.LoadData(data);
+        currentClipIndex = 0;
+        view.ResetView();
+    }
 
-    // Воспроизведение слова
     public void PlayWord()
     {
         var clips = model.WordClips;
+        if (clips == null || clips.Length == 0) return;
 
-        if (clips == null || clips.Length == 0)
-            return;
-
-        AudioClip clipToPlay;
-
-        if (playMode == PlayMode.Random)
-        {
-            clipToPlay = clips[Random.Range(0, clips.Length)];
-        }
-        else // Sequential
-        {
-            clipToPlay = clips[currentClipIndex];
-            currentClipIndex = (currentClipIndex + 1) % clips.Length;
-        }
+        AudioClip clip = playMode == PlayMode.Random
+            ? clips[Random.Range(0, clips.Length)]
+            : clips[currentClipIndex++ % clips.Length];
 
         audioSource.Stop();
-        audioSource.clip = clipToPlay;
+        audioSource.clip = clip;
         audioSource.Play();
     }
 
@@ -68,7 +58,6 @@ public class WordQuizController : MonoBehaviour
         }
 
         string user = Normalize(userInput);
-
         bool isCorrect = false;
 
         foreach (var word in model.CorrectWords)
@@ -81,14 +70,18 @@ public class WordQuizController : MonoBehaviour
         }
 
         if (isCorrect)
+        {
             view.SetCorrect();
+            
+            ProgressManager.Instance.NextExercise();
+        }
         else
+        {
             view.SetWrong();
+        }
     }
 
-    private string Normalize(string input)
-    {
-        return System.Text.RegularExpressions
-            .Regex.Replace(input.ToLower().Trim(), @"\s+", " ");
-    }
+    private string Normalize(string input) =>
+        System.Text.RegularExpressions.Regex
+            .Replace(input.ToLower().Trim(), @"\s+", " ");
 }

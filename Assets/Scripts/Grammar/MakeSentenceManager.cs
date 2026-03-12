@@ -84,7 +84,7 @@ public class MakeSentenceManager : MonoBehaviour
 
         if (correct)
         {
-            GrammarProgressManager.instance.NextExercise();
+            ProgressManager.Instance.NextExercise();
         }
     }
 

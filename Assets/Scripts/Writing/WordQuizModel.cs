@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class WordQuizModel : MonoBehaviour
 {
-    [Header("Correct Answers")]
+    [Header("Data (ScriptableObject)")]
+    [SerializeField] private WritingData writingData;
+    
+    [Header("Fallback (если нет WritingData)")]
     [SerializeField] private string[] correctWords;
-
-    [Header("Audio Variants")]
     [SerializeField] private AudioClip[] wordClips;
 
-    public string[] CorrectWords => correctWords;
-    public AudioClip[] WordClips => wordClips;
-
-    public void SetData(string[] words, AudioClip[] clips)
+    public string[] CorrectWords => writingData != null ? writingData.correctWords : correctWords;
+    public AudioClip[] WordClips => writingData != null ? writingData.wordClips : wordClips;
+    
+    public void LoadData(WritingData data)
     {
-        correctWords = words;
-        wordClips = clips;
+        writingData = data;
     }
 }

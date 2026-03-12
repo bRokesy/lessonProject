@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lesson4_Ex1
   m_EditorClassIdentifier: Assembly-CSharp::FillBlankData
   taskTitle: "\u0417\u0430\u0434\u0430\u043D\u0438\u0435 1"
-  hint: 
+  hint: "\u4ED6\u660E\u5929\u65E9\u4E0A\u8981\u53BB\u5B66\u6821"
   sentenceWithBlanks: "\u0417\u0430\u0432\u0442\u0440\u0430 \u0443\u0442\u0440\u043E\u043C
     \u043E\u043D \u043F\u043E\u0439\u0434\u0435\u0442 \u0432 ___"
   correctAnswers:
