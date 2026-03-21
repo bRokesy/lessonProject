@@ -16,9 +16,8 @@ public class TranslationQuizController : MonoBehaviour, IExerciseController
     [SerializeField] private Image questionImage;
     [SerializeField] private GameObject imageContainer; // скрывается целиком если картинки нет
 
-    [Header("Behavior")]
-    [SerializeField] private float delayBeforeNext = 1.2f;
 
+    private float delayBeforeNext = 1.5f;
     private List<OptionButtonUI> spawned = new();
     private int index = 0;
     private bool answered = false;
@@ -28,6 +27,11 @@ public class TranslationQuizController : MonoBehaviour, IExerciseController
     {
         if (currentData != null)
             LoadExercise(currentData);
+
+        if (ProgressManager.Instance != null)
+        {
+            delayBeforeNext = ProgressManager.Instance.nextExerciseDelay;
+        }
     }
 
     public void LoadExercise(TranslateData data)
@@ -67,6 +71,8 @@ public class TranslationQuizController : MonoBehaviour, IExerciseController
                 imageContainer.SetActive(hasImage);
             else
                 questionImage.gameObject.SetActive(hasImage);
+            
+            questionImage.gameObject.GetComponent<Image>().preserveAspect = true;
         }
 
         foreach (var opt in q.options)
@@ -103,20 +109,20 @@ public class TranslationQuizController : MonoBehaviour, IExerciseController
     private IEnumerator NextAfterDelay()
     {
         yield return new WaitForSeconds(delayBeforeNext);
+        ClearOptions();
         index++;
         ShowQuestion();
     }
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(ProgressManager.Instance.nextExerciseDelay);
-        ClearOptions();
+        yield return new WaitForSeconds(delayBeforeNext);
+        ProgressManager.Instance.NextExercise();
     }
 
     private void Finish()
     {
         StartCoroutine(DestroyAfterDelay());
-        ProgressManager.Instance.NextExercise();
         if (progressText && currentData != null)
             progressText.text = $"{currentData.questions.Count}/{currentData.questions.Count}";
     }

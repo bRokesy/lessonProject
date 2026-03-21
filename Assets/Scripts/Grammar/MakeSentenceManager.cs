@@ -1,9 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MakeSentenceManager : MonoBehaviour
+public class MakeSentenceManager : MonoBehaviour, IExerciseController
 {
     [Header("UI References")]
     public Transform wordBank;
@@ -18,7 +19,8 @@ public class MakeSentenceManager : MonoBehaviour
     public GameObject wordChipPrefab;
 
     private List<DraggableWord> spawnedChips = new List<DraggableWord>();
-    private MakeSentenceData currentData; 
+    private MakeSentenceData currentData;
+    private int currentIndex = 0;
 
     void Start()
     {
@@ -28,17 +30,24 @@ public class MakeSentenceManager : MonoBehaviour
 
     public void LoadExercise(MakeSentenceData data)
     {
-        currentData = data; // ← сохраняем
+        currentData  = data;
+        currentIndex = 0;
+        ShowQuestion();
+    }
+
+    void ShowQuestion()
+    {
+        if (currentData == null || currentIndex >= currentData.questions.Count) return;
+
+        var q = currentData.questions[currentIndex];
 
         feedbackText.text = "";
-        taskLabel.text = data.taskTitle;
-        hintLabel.text = data.hint;
+        taskLabel.text    = q.taskTitle;
+        hintLabel.text    = q.hint;
 
         ClearAll();
 
-        var shuffledData = data.GetShuffled();
-
-        foreach (string word in shuffledData)
+        foreach (string word in q.GetShuffled())
         {
             GameObject chip = Instantiate(wordChipPrefab, wordBank);
             DraggableWord dw = chip.GetComponent<DraggableWord>();
@@ -52,6 +61,10 @@ public class MakeSentenceManager : MonoBehaviour
         foreach (var chip in spawnedChips)
             if (chip != null) Destroy(chip.gameObject);
         spawnedChips.Clear();
+
+        // Очистить answerZone
+        foreach (Transform child in answerZone)
+            Destroy(child.gameObject);
     }
 
     public void CheckAnswer()
@@ -59,43 +72,46 @@ public class MakeSentenceManager : MonoBehaviour
         if (currentData == null) return;
 
         List<string> playerWords = new List<string>();
-
         foreach (Transform child in answerZone)
         {
             DraggableWord dw = child.GetComponent<DraggableWord>();
-            if (dw != null)
-                playerWords.Add(dw.Word);
+            if (dw != null) playerWords.Add(dw.Word);
         }
 
         string playerSentence = string.Join(" ", playerWords).Trim();
         bool correct = false;
 
-        foreach (string sentence in currentData.correctSentences)
+        foreach (string sentence in currentData.questions[currentIndex].correctSentences)
         {
-            if (sentence == playerSentence)
-            {
-                correct = true;
-                break;
-            }
+            if (sentence == playerSentence) { correct = true; break; }
         }
 
-        feedbackText.text = correct ? "Правильно!" : "Попробуйте ещё раз";
-        feedbackText.color = correct ? Color.green : Color.red;
+        feedbackText.text  = correct ? "Правильно!" : "Попробуйте ещё раз";
 
-        if (correct)
-        {
+        if (correct) StartCoroutine(NextAfterDelay());
+    }
+
+    IEnumerator NextAfterDelay()
+    {
+        yield return new WaitForSeconds(ProgressManager.Instance.nextExerciseDelay);
+
+        currentIndex++;
+        if (currentIndex < currentData.questions.Count)
+            ShowQuestion();
+        else
             ProgressManager.Instance.NextExercise();
-        }
     }
 
     public void ResetExercise()
     {
         feedbackText.text = "";
-
         foreach (var chip in spawnedChips)
-        {
-            if (chip != null)
-                chip.ReturnToBank();
-        }
+            if (chip != null) chip.ReturnToBank();
+    }
+
+    public void OnExerciseLeave()
+    {
+        ClearAll();
+        feedbackText.text = "";
     }
 }

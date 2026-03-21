@@ -95,6 +95,8 @@ MonoBehaviour:
   emptyColor: {r: 0.85, g: 0.85, b: 0.9, a: 1}
   filledColor: {r: 0.8, g: 0.94178134, b: 0.9490196, a: 1}
   hoverColor: {r: 0.7, g: 0.85, b: 1, a: 1}
+  minWidth: 80
+  padding: 16
   correctAnswer: 
 --- !u!114 &5763453716070679491
 MonoBehaviour:
@@ -113,7 +115,7 @@ MonoBehaviour:
   m_MinHeight: 60
   m_PreferredWidth: -1
   m_PreferredHeight: -1
-  m_FlexibleWidth: 0
+  m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!1 &771823260495745401

@@ -42,7 +42,7 @@ public class DraggableWord : MonoBehaviour,
         if (rootCanvas == null)
             Debug.LogError("DraggableWord: объект не под Canvas");
     }
-    
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (CurrentSlot != null)
@@ -87,8 +87,12 @@ public class DraggableWord : MonoBehaviour,
     {
         CurrentSlot = null;
         transform.SetParent(wordBank, false);
+
+        // Восстановить нормальный anchor
+        rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+        rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
     }
-    
+
     public void MoveToZone(Transform target, int insertIndex = -1)
     {
         transform.SetParent(target, false);
@@ -102,10 +106,9 @@ public class DraggableWord : MonoBehaviour,
         CurrentSlot = slot;
         transform.SetParent(slot.transform, false);
 
-        var rt = GetComponent<RectTransform>();
-        rt.anchorMin = Vector2.zero;
-        rt.anchorMax = Vector2.one;
-        rt.offsetMin = Vector2.zero;
-        rt.offsetMax = Vector2.zero;
+        // Центрировать чип внутри слота без растяжения
+        rectTransform.anchorMin        = new Vector2(0.5f, 0.5f);
+        rectTransform.anchorMax        = new Vector2(0.5f, 0.5f);
+        rectTransform.anchoredPosition = Vector2.zero;
     }
 }

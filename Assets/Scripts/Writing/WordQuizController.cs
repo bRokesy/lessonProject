@@ -1,9 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(WordQuizModel))]
 [RequireComponent(typeof(WordQuizView))]
 [RequireComponent(typeof(AudioSource))]
-public class WordQuizController : MonoBehaviour
+public class WordQuizController : MonoBehaviour, IExerciseController
 {
     public enum PlayMode { Random, Sequential }
 
@@ -13,24 +14,35 @@ public class WordQuizController : MonoBehaviour
     private WordQuizView view;
     private AudioSource audioSource;
     private int currentClipIndex = 0;
+    private WritingData currentData;
+    private int currentIndex = 0;
 
-    private void Awake()
+    void Awake()
     {
-        model = GetComponent<WordQuizModel>();
-        view  = GetComponent<WordQuizView>();
+        model       = GetComponent<WordQuizModel>();
+        view        = GetComponent<WordQuizView>();
         audioSource = GetComponent<AudioSource>();
 
         view.InputField.onEndEdit.AddListener(CheckAnswer);
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
         view.InputField.onEndEdit.RemoveListener(CheckAnswer);
     }
-    
+
     public void LoadExercise(WritingData data)
     {
-        model.LoadData(data);
+        currentData  = data;
+        currentIndex = 0;
+        ShowQuestion();
+    }
+
+    void ShowQuestion()
+    {
+        if (currentData == null || currentIndex >= currentData.questions.Count) return;
+
+        model.LoadQuestion(currentData.questions[currentIndex]);
         currentClipIndex = 0;
         view.ResetView();
     }
@@ -49,31 +61,22 @@ public class WordQuizController : MonoBehaviour
         audioSource.Play();
     }
 
-    private void CheckAnswer(string userInput)
+    void CheckAnswer(string userInput)
     {
-        if (string.IsNullOrWhiteSpace(userInput))
-        {
-            view.ResetView();
-            return;
-        }
+        if (string.IsNullOrWhiteSpace(userInput)) { view.ResetView(); return; }
 
         string user = Normalize(userInput);
         bool isCorrect = false;
 
         foreach (var word in model.CorrectWords)
         {
-            if (Normalize(word) == user)
-            {
-                isCorrect = true;
-                break;
-            }
+            if (Normalize(word) == user) { isCorrect = true; break; }
         }
 
         if (isCorrect)
         {
             view.SetCorrect();
-            
-            ProgressManager.Instance.NextExercise();
+            StartCoroutine(NextAfterDelay());
         }
         else
         {
@@ -81,7 +84,23 @@ public class WordQuizController : MonoBehaviour
         }
     }
 
-    private string Normalize(string input) =>
+    IEnumerator NextAfterDelay()
+    {
+        yield return new WaitForSeconds(ProgressManager.Instance.nextExerciseDelay);
+
+        currentIndex++;
+        if (currentIndex < currentData.questions.Count)
+            ShowQuestion();
+        else
+            ProgressManager.Instance.NextExercise();
+    }
+
+    string Normalize(string input) =>
         System.Text.RegularExpressions.Regex
             .Replace(input.ToLower().Trim(), @"\s+", " ");
+
+    public void OnExerciseLeave()
+    {
+        view.ResetView();
+    }
 }

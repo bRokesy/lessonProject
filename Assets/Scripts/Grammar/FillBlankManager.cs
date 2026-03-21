@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class FillBlankManager : MonoBehaviour
+public class FillBlankManager : MonoBehaviour, IExerciseController
 {
     [Header("UI References")]
     public Transform sentenceContainer;
@@ -22,6 +22,8 @@ public class FillBlankManager : MonoBehaviour
 
     private List<DraggableWord> spawnedChips = new List<DraggableWord>();
     private List<BlankSlot> spawnedSlots     = new List<BlankSlot>();
+    private FillBlankData currentData;
+    private int currentIndex = 0;
 
     void Start()
     {
@@ -31,27 +33,37 @@ public class FillBlankManager : MonoBehaviour
 
     public void LoadExercise(FillBlankData data)
     {
+        currentData  = data;
+        currentIndex = 0;
+        ShowQuestion();
+    }
+
+    void ShowQuestion()
+    {
+        if (currentData == null || currentIndex >= currentData.questions.Count) return;
+
+        var q = currentData.questions[currentIndex];
+
         feedbackText.text = "";
-        taskLabel.text    = data.taskTitle;
-        hintLabel.text    = data.hint;
+        taskLabel.text    = q.taskTitle;
+        hintLabel.text    = q.hint;
 
         ClearAll();
-        BuildSentence(data);
-        SpawnWordBank(data);
-        
+        BuildSentence(q);
+        SpawnWordBank(q);
         StartCoroutine(ForceLayout());
-
-        IEnumerator ForceLayout()
-        {
-            yield return null;
-            LayoutRebuilder.ForceRebuildLayoutImmediate(
-                sentenceContainer.GetComponent<RectTransform>());
-        }
     }
-    
-    void BuildSentence(FillBlankData data)
+
+    IEnumerator ForceLayout()
     {
-        string[] parts = data.sentenceWithBlanks.Split(new string[] { "___" }, System.StringSplitOptions.None);
+        yield return null;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(
+            sentenceContainer.GetComponent<RectTransform>());
+    }
+
+    void BuildSentence(FillBlankData.Question q)
+    {
+        string[] parts = q.sentenceWithBlanks.Split(new string[] { "___" }, System.StringSplitOptions.None);
         int blankIndex = 0;
 
         for (int i = 0; i < parts.Length; i++)
@@ -63,21 +75,20 @@ public class FillBlankManager : MonoBehaviour
                 if (tmp) tmp.text = parts[i];
             }
 
-            if (i < parts.Length - 1 && blankIndex < data.correctAnswers.Count)
+            if (i < parts.Length - 1 && blankIndex < q.correctAnswers.Count)
             {
                 GameObject slotGO = Instantiate(slotPrefab, sentenceContainer);
                 BlankSlot slot = slotGO.GetComponent<BlankSlot>();
-                slot.correctAnswer = data.correctAnswers[blankIndex];
+                slot.correctAnswer = q.correctAnswers[blankIndex];
                 spawnedSlots.Add(slot);
                 blankIndex++;
             }
         }
     }
 
-    void SpawnWordBank(FillBlankData data)
+    void SpawnWordBank(FillBlankData.Question q)
     {
-        // Перемешать слова
-        var words = new List<string>(data.wordBankWords);
+        var words = new List<string>(q.wordBankWords);
         for (int i = words.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
@@ -97,20 +108,23 @@ public class FillBlankManager : MonoBehaviour
     {
         int correct = 0;
         foreach (var slot in spawnedSlots)
-        {
             if (slot.IsCorrect()) correct++;
-        }
 
         bool allCorrect = correct == spawnedSlots.Count;
-        feedbackText.text  = allCorrect
-            ? "Правильно!"
-            : $"Правильно {correct} из {spawnedSlots.Count}";
-        feedbackText.color = allCorrect ? Color.green : Color.red;
+        feedbackText.text  = allCorrect ? "Правильно!" : $"Правильно {correct} из {spawnedSlots.Count}";
 
-        if (allCorrect)
-        {
+        if (allCorrect) StartCoroutine(NextAfterDelay());
+    }
+
+    IEnumerator NextAfterDelay()
+    {
+        yield return new WaitForSeconds(ProgressManager.Instance.nextExerciseDelay);
+
+        currentIndex++;
+        if (currentIndex < currentData.questions.Count)
+            ShowQuestion();
+        else
             ProgressManager.Instance.NextExercise();
-        }
     }
 
     public void ResetExercise()
@@ -118,7 +132,6 @@ public class FillBlankManager : MonoBehaviour
         feedbackText.text = "";
         foreach (var chip in spawnedChips)
             if (chip != null) chip.ReturnToBank();
-
         foreach (var slot in spawnedSlots)
             slot.ClearSlot();
     }
@@ -132,8 +145,14 @@ public class FillBlankManager : MonoBehaviour
         foreach (var slot in spawnedSlots)
             if (slot != null) Destroy(slot.gameObject);
         spawnedSlots.Clear();
-        
+
         foreach (Transform child in sentenceContainer)
             Destroy(child.gameObject);
+    }
+
+    public void OnExerciseLeave()
+    {
+        ClearAll();
+        feedbackText.text = "";
     }
 }

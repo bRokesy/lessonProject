@@ -16,6 +16,10 @@ public class UIFlashcardFlip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI translationText;
     [SerializeField] private Image picture;
 
+    [Header("Example (опционально)")]
+    [SerializeField] private TextMeshProUGUI exampleText;       // TMP для примера
+    [SerializeField] private GameObject exampleContainer;       // скрывается если примера нет
+
     [Header("Flip Settings")]
     [SerializeField] private float halfFlipDuration = 0.15f;
     [SerializeField] private AnimationCurve easing = AnimationCurve.EaseInOut(0, 0, 1, 1);
@@ -31,16 +35,23 @@ public class UIFlashcardFlip : MonoBehaviour
         if (btn != null) btn.onClick.AddListener(TryFlip);
     }
 
-    public void SetData(string foreignWord, string translation, Sprite img)
+    public void SetData(string foreignWord, string translation, Sprite img, string example = "")
     {
         if (foreignText)     foreignText.text     = foreignWord;
         if (translationText) translationText.text = translation;
         if (picture)         picture.sprite       = img;
 
+        // Example — показать если есть, скрыть если нет
+        bool hasExample = !string.IsNullOrEmpty(example);
+        if (exampleText) exampleText.text = hasExample ? example : "";
+        if (exampleContainer != null)
+            exampleContainer.SetActive(hasExample);
+        else if (exampleText != null)
+            exampleText.gameObject.SetActive(hasExample);
+
         ResetToFront();
     }
 
-    /// <summary>Сбросить карточку на лицевую сторону без анимации.</summary>
     public void ResetToFront()
     {
         isFront = true;

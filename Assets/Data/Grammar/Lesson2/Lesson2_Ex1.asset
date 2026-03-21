@@ -14,11 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TranslateData
   lessonTitle: "\u0417\u0430\u0434\u0430\u0447\u0430 1"
   questions:
-  - foreignWord: "\u770B"
-    correctTranslation: "\u0427\u0438\u0442\u0430\u0442\u044C - \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0442\u044C"
+  - foreignWord: "\u8BF7\u9009\u62E9\u6B63\u786E\u7684\u52A8\u8BCD"
+    correctTranslation: "\u043F\u0438\u0441\u0430\u0442\u044C"
     options:
-    - "\u0427\u0438\u0442\u0430\u0442\u044C - \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0442\u044C"
-    - "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C"
-    - "\u0427\u0442\u0435\u043D\u0438\u0435"
-    - "\u041F\u0440\u043E\u0445\u043E\u0434\u0438\u0442\u044C"
+    - "\u043D\u0430\u043F\u0438\u0441\u0430\u0442\u044C"
+    - "\u043F\u0438\u0441\u0430\u0442\u044C"
+    - "\u0430\u043D\u043A\u0435\u0442\u0430"
+    - "\u0440\u0443\u0447\u043A\u0430"
+    image: {fileID: -2114124099549106012, guid: 672898570cfd24d4f835059779de88db, type: 3}
+  - foreignWord: "\u8BF7\u9009\u62E9\u6B63\u786E\u7684\u5B8C\u6210\u4F53\u52A8\u8BCD
+      \xAB\u0447\u0438\u0442\u0430\u0442\u044C\xBB."
+    correctTranslation: "\u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0442\u044C"
+    options:
+    - "\u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0442\u044C"
+    - "\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C"
+    - "\u0447\u0442\u0435\u043D\u0438\u0435"
+    - "\u043F\u0440\u043E\u0445\u043E\u0434\u0438\u0442\u044C"
     image: {fileID: 7671565966223794249, guid: 58bab471672cb4fd9adcebbe041ced1c, type: 3}

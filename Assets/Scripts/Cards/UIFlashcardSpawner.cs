@@ -20,19 +20,15 @@ public class UIFlashcardSpawner : MonoBehaviour
     public void LoadDeck(FlashcardDeckData newDeck)
     {
         deck = newDeck;
-        // Используем корутину чтобы Destroy старых карточек успел выполниться
         StartCoroutine(SpawnNextFrame());
     }
 
     IEnumerator SpawnNextFrame()
     {
-        // Уничтожить старые
         for (int i = contentParent.childCount - 1; i >= 0; i--)
             Destroy(contentParent.GetChild(i).gameObject);
 
-        // Ждём кадр — Destroy выполняется в конце кадра
         yield return null;
-
         SpawnAll();
     }
 
@@ -40,7 +36,6 @@ public class UIFlashcardSpawner : MonoBehaviour
     {
         if (deck == null || cardPrefab == null || contentParent == null) return;
 
-        // Очистить синхронно (для первого вызова из Start)
         for (int i = contentParent.childCount - 1; i >= 0; i--)
             Destroy(contentParent.GetChild(i).gameObject);
 
@@ -48,10 +43,10 @@ public class UIFlashcardSpawner : MonoBehaviour
         {
             var card = Instantiate(cardPrefab, contentParent);
             card.SetActive(false);
-            card.GetComponent<UIFlashcardFlip>()?.SetData(entry.foreignWord, entry.translation, entry.image);
+            card.GetComponent<UIFlashcardFlip>()
+                ?.SetData(entry.foreignWord, entry.translation, entry.image, entry.example);
         }
 
-        // Уведомить менеджер после спавна
         GetComponent<FlashcardDeckManager>()?.OnDeckLoaded();
     }
 }

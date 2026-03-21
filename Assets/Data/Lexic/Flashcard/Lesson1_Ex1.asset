@@ -13,12 +13,39 @@ MonoBehaviour:
   m_Name: Lesson1_Ex1
   m_EditorClassIdentifier: Assembly-CSharp::FlashcardDeckData
   cards:
-  - foreignWord: "\u82F9\u679C"
-    translation: "\u044F\u0431\u043B\u043E\u043A\u043E"
+  - foreignWord: "\u7533\u8BF7\u8868"
+    translation: "\u0430\u043D\u043A\u0435\u0442\u0430"
     image: {fileID: 0}
-  - foreignWord: "\u5546\u5E97"
-    translation: "\u043C\u0430\u0433\u0430\u0437\u0438\u043D"
+    example: 
+  - foreignWord: "\u5BF9\u8BDD"
+    translation: "\u0434\u0438\u0430\u043B\u043E\u0433"
     image: {fileID: 0}
-  - foreignWord: "\u5BB6\u5EAD"
-    translation: "\u0441\u0435\u043C\u044C\u044F"
+    example: 
+  - foreignWord: "\u8BFE\u9898"
+    translation: "\u0437\u0430\u0434\u0430\u043D\u0438\u0435"
     image: {fileID: 0}
+    example: 
+  - foreignWord: "\u6D88\u606F"
+    translation: "\u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u7AE5\u8BDD"
+    translation: "\u0441\u043A\u0430\u0437\u043A\u0430"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u5EFA\u8BAE"
+    translation: "\u0441\u043E\u0432\u0435\u0442"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u53E5\u8BDD"
+    translation: "\u0444\u0440\u0430\u0437\u0430"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u79D1\u5B66"
+    translation: "\u043D\u0430\u0443\u043A\u0430"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u77ED\u7BC7\u5C0F\u8BF4"
+    translation: "\u0440\u0430\u0441\u0441\u043A\u0430\u0437"
+    image: {fileID: 0}
+    example: 

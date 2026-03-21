@@ -10,7 +10,12 @@ public class FlashcardDeckData : ScriptableObject
 [System.Serializable]
 public class FlashcardEntry
 {
+    [TextArea]
     public string foreignWord;
+    [TextArea]
     public string translation;
     public Sprite image;
+
+    [Tooltip("Опционально — пример использования слова")]
+    public string example;
 }
