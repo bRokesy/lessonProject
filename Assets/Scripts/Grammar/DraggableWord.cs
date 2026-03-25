@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class DraggableWord : MonoBehaviour,
@@ -18,6 +19,12 @@ public class DraggableWord : MonoBehaviour,
     private Canvas rootCanvas;
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
+    private Image background;
+
+    public void Start()
+    {
+        background = GetComponent<Image>();
+    }
 
     public void Init(string word, Transform bank, Transform answer = null)
     {
@@ -87,10 +94,10 @@ public class DraggableWord : MonoBehaviour,
     {
         CurrentSlot = null;
         transform.SetParent(wordBank, false);
-
-        // Восстановить нормальный anchor
         rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
         rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+
+        if (background) background.enabled = true; 
     }
 
     public void MoveToZone(Transform target, int insertIndex = -1)
@@ -106,9 +113,10 @@ public class DraggableWord : MonoBehaviour,
         CurrentSlot = slot;
         transform.SetParent(slot.transform, false);
 
-        // Центрировать чип внутри слота без растяжения
         rectTransform.anchorMin        = new Vector2(0.5f, 0.5f);
         rectTransform.anchorMax        = new Vector2(0.5f, 0.5f);
         rectTransform.anchoredPosition = Vector2.zero;
+
+        if (background) background.enabled = false;
     }
 }

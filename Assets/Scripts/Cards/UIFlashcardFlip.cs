@@ -17,31 +17,44 @@ public class UIFlashcardFlip : MonoBehaviour
     [SerializeField] private Image picture;
 
     [Header("Example (опционально)")]
-    [SerializeField] private TextMeshProUGUI exampleText;       // TMP для примера
-    [SerializeField] private GameObject exampleContainer;       // скрывается если примера нет
+    [SerializeField] private TextMeshProUGUI exampleText;
+    [SerializeField] private GameObject exampleContainer;
 
     [Header("Flip Settings")]
     [SerializeField] private float halfFlipDuration = 0.15f;
     [SerializeField] private AnimationCurve easing = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     private RectTransform rect;
+    private AudioSource audioSource;
     private bool isFront = true;
     private bool isFlipping = false;
+
+    private AudioClip frontAudio;
+    private AudioClip backAudio;
 
     void Awake()
     {
         rect = (RectTransform)transform;
+
+        // AudioSource — добавить автоматически если нет
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
         var btn = GetComponent<Button>();
         if (btn != null) btn.onClick.AddListener(TryFlip);
     }
 
-    public void SetData(string foreignWord, string translation, Sprite img, string example = "")
+    public void SetData(string foreignWord, string translation, Sprite img,
+                        string example = "", AudioClip frontClip = null, AudioClip backClip = null)
     {
         if (foreignText)     foreignText.text     = foreignWord;
         if (translationText) translationText.text = translation;
         if (picture)         picture.sprite       = img;
 
-        // Example — показать если есть, скрыть если нет
+        frontAudio = frontClip;
+        backAudio  = backClip;
+
         bool hasExample = !string.IsNullOrEmpty(example);
         if (exampleText) exampleText.text = hasExample ? example : "";
         if (exampleContainer != null)
@@ -70,14 +83,32 @@ public class UIFlashcardFlip : MonoBehaviour
     IEnumerator FlipRoutine()
     {
         isFlipping = true;
+
+        // Схлопнуть
         yield return ScaleX(1f, 0f, halfFlipDuration);
 
+        // Сменить сторону
         isFront = !isFront;
         if (frontSide) frontSide.SetActive(isFront);
         if (backSide)  backSide.SetActive(!isFront);
 
+        // Раскрыть
         yield return ScaleX(0f, 1f, halfFlipDuration);
+
+        // Воспроизвести аудио новой стороны
+        PlayCurrentAudio();
+
         isFlipping = false;
+    }
+
+    void PlayCurrentAudio()
+    {
+        AudioClip clip = isFront ? frontAudio : backAudio;
+        if (clip == null || audioSource == null) return;
+
+        audioSource.Stop();
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     IEnumerator ScaleX(float from, float to, float duration)

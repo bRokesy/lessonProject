@@ -13,6 +13,9 @@ public class TranslateData : ScriptableObject
 
         [Tooltip("Опционально — картинка к вопросу")]
         public Sprite image;
+
+        [Tooltip("Опционально — аудио к вопросу")]
+        public AudioClip audio;
     }
 
     [Header("Display")]

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a17f86819e15944159061dfe4a8ff9b7, type: 3}
+  m_Name: Type2
+  m_EditorClassIdentifier: Assembly-CSharp::LessonData
+  lessonName: "\u0420\u0430\u0437\u0434\u0435\u043B \xAB\u0413\u0440\u0430\u043C\u043C\u0430\u0442\u0438\u043A\u0430\xBB"
+  exerciseType: 2
+  fillBlankExercises: []
+  makeSentenceExercises: []
+  translateExercises:
+  - {fileID: 11400000, guid: 62fe9dd829e774f5980d87c71530b54a, type: 2}
+  - {fileID: 11400000, guid: 29335ac66503c450288a6c9957da2e88, type: 2}
+  writingExercises: []
+  flashcardDecks: []

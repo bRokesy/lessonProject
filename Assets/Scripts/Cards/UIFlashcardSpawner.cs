@@ -43,8 +43,14 @@ public class UIFlashcardSpawner : MonoBehaviour
         {
             var card = Instantiate(cardPrefab, contentParent);
             card.SetActive(false);
-            card.GetComponent<UIFlashcardFlip>()
-                ?.SetData(entry.foreignWord, entry.translation, entry.image, entry.example);
+            card.GetComponent<UIFlashcardFlip>()?.SetData(
+                entry.foreignWord,
+                entry.translation,
+                entry.image,
+                entry.example,
+                entry.frontAudio,
+                entry.backAudio
+            );
         }
 
         GetComponent<FlashcardDeckManager>()?.OnDeckLoaded();

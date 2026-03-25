@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d41a317c25b604483e6ad55bbda19e, type: 3}
+  m_Name: Type1_Lesson1
+  m_EditorClassIdentifier: Assembly-CSharp::FlashcardDeckData
+  lessonTitle: "\u0423\u0440\u043E\u043A 1"
+  cards:
+  - foreignWord: "\u7533\u8BF7\u8868"
+    translation: "\u0430\u043D\u043A\u0435\u0442\u0430"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u5BF9\u8BDD"
+    translation: "\u0434\u0438\u0430\u043B\u043E\u0433"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u8BFE\u9898"
+    translation: "\u0437\u0430\u0434\u0430\u043D\u0438\u0435"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u6D88\u606F"
+    translation: "\u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u7AE5\u8BDD"
+    translation: "\u0441\u043A\u0430\u0437\u043A\u0430"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u5EFA\u8BAE"
+    translation: "\u0441\u043E\u0432\u0435\u0442"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u53E5\u8BDD"
+    translation: "\u0444\u0440\u0430\u0437\u0430"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u79D1\u5B66"
+    translation: "\u043D\u0430\u0443\u043A\u0430"
+    image: {fileID: 0}
+    example: 
+  - foreignWord: "\u77ED\u7BC7\u5C0F\u8BF4"
+    translation: "\u0440\u0430\u0441\u0441\u043A\u0430\u0437"
+    image: {fileID: 0}
+    example: 

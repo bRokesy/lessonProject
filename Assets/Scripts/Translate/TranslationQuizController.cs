@@ -14,14 +14,30 @@ public class TranslationQuizController : MonoBehaviour, IExerciseController
 
     [Header("Image (опционально)")]
     [SerializeField] private Image questionImage;
-    [SerializeField] private GameObject imageContainer; // скрывается целиком если картинки нет
+    [SerializeField] private GameObject imageContainer;
 
+    [Header("Audio (опционально)")]
+    [SerializeField] private Button audioButton; // кнопка воспроизведения
 
+    private AudioSource audioSource;
     private float delayBeforeNext = 1.5f;
     private List<OptionButtonUI> spawned = new();
     private int index = 0;
     private bool answered = false;
     private TranslateData currentData;
+
+    void Awake()
+    {
+        // AudioSource на том же GameObject
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        if (audioButton != null)
+            audioButton.onClick.AddListener(PlayAudio);
+    }
 
     void Start()
     {
@@ -29,9 +45,7 @@ public class TranslationQuizController : MonoBehaviour, IExerciseController
             LoadExercise(currentData);
 
         if (ProgressManager.Instance != null)
-        {
             delayBeforeNext = ProgressManager.Instance.nextExerciseDelay;
-        }
     }
 
     public void LoadExercise(TranslateData data)
@@ -61,18 +75,27 @@ public class TranslationQuizController : MonoBehaviour, IExerciseController
         if (progressText)
             progressText.text = $"{index + 1}/{currentData.questions.Count}";
 
-        // Картинка — показать если есть, скрыть если нет
+        // Картинка
         if (questionImage != null)
         {
             bool hasImage = q.image != null;
             questionImage.sprite = hasImage ? q.image : null;
+            questionImage.preserveAspect = true;
 
             if (imageContainer != null)
                 imageContainer.SetActive(hasImage);
             else
                 questionImage.gameObject.SetActive(hasImage);
-            
-            questionImage.gameObject.GetComponent<Image>().preserveAspect = true;
+        }
+
+        // Аудио — показать кнопку если есть клип, скрыть если нет
+        if (audioButton != null)
+        {
+            bool hasAudio = q.audio != null;
+            audioButton.gameObject.SetActive(hasAudio);
+
+            // Автоматически воспроизвести при показе вопроса
+            if (hasAudio) PlayAudio();
         }
 
         foreach (var opt in q.options)
@@ -83,6 +106,17 @@ public class TranslationQuizController : MonoBehaviour, IExerciseController
             btnUI.Setup(opt, OnOptionClicked);
             spawned.Add(btnUI);
         }
+    }
+
+    public void PlayAudio()
+    {
+        if (currentData == null || index >= currentData.questions.Count) return;
+        var clip = currentData.questions[index].audio;
+        if (clip == null || audioSource == null) return;
+
+        audioSource.Stop();
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     private void OnOptionClicked(OptionButtonUI clicked)
