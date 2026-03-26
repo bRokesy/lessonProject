@@ -16,7 +16,8 @@ public class FlashcardEntry
     public Sprite image;
 
     [Tooltip("Опционально — пример использования слова")]
-    public string example;
+    public string exampleForeign;
+    public string exampleTranslation;
 
     [Tooltip("Опционально — аудио лицевой стороны (иностранное слово)")]
     public AudioClip frontAudio;

@@ -47,7 +47,8 @@ public class UIFlashcardSpawner : MonoBehaviour
                 entry.foreignWord,
                 entry.translation,
                 entry.image,
-                entry.example,
+                entry.exampleForeign,
+                entry.exampleTranslation,
                 entry.frontAudio,
                 entry.backAudio
             );

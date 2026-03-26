@@ -7,6 +7,7 @@ using TMPro;
 public class ProgressManager : MonoBehaviour
 {
     public static ProgressManager Instance { get; private set; }
+    public static string CurrentLessonTitle;
 
     [Header("Уроки по порядку")]
     public List<LessonData> lessons;
@@ -54,7 +55,7 @@ public class ProgressManager : MonoBehaviour
     {
         nextButton?.onClick.RemoveAllListeners();
         prevButton?.onClick.RemoveAllListeners();
-        nextButton?.onClick.AddListener(NextExercise);
+        nextButton?.onClick.AddListener(NextExerciseNoDelay);
         prevButton?.onClick.AddListener(PrevExercise);
     }
 
@@ -62,15 +63,20 @@ public class ProgressManager : MonoBehaviour
 
     public void NextExercise()
     {
-        StartCoroutine(NextExerciseDelayed());
+        StartCoroutine(NextExerciseDelayed(nextExerciseDelay));
     }
 
-    IEnumerator NextExerciseDelayed()
+    public void NextExerciseNoDelay()
+    {
+        StartCoroutine(NextExerciseDelayed(0f));
+    }
+
+    IEnumerator NextExerciseDelayed(float delay)
     {
         // Заблокировать кнопку на время задержки
         if (nextButton) nextButton.interactable = false;
 
-        yield return new WaitForSeconds(nextExerciseDelay);
+        yield return new WaitForSeconds(delay);
 
         var lesson = lessons[currentLesson];
         if (currentExercise < lesson.Count - 1)
@@ -147,7 +153,7 @@ public class ProgressManager : MonoBehaviour
                 FindAndLoad<MakeSentenceManager>(m => m.LoadExercise(lesson.makeSentenceExercises[currentExercise]));
                 break;
             case LessonData.ExerciseType.Translate:
-                FindAndLoad<TranslationQuizController>(m => m.LoadExercise(lesson.translateExercises[currentExercise]));
+                FindAndLoad<TranslationQuizManager>(m => m.LoadExercise(lesson.translateExercises[currentExercise]));
                 break;
             case LessonData.ExerciseType.Writing:
                 FindAndLoad<WordQuizController>(m => m.LoadExercise(lesson.writingExercises[currentExercise]));

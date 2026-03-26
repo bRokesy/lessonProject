@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17f86819e15944159061dfe4a8ff9b7, type: 3}
   m_Name: Type5
   m_EditorClassIdentifier: Assembly-CSharp::LessonData
-  lessonName: "\u0423\u0440\u043E\u043A 5"
+  lessonName: "\u0420\u0430\u0437\u0434\u0435\u043B \xAB\u041B\u0435\u043A\u0441\u0438\u043A\u0430\xBB"
   exerciseType: 3
   fillBlankExercises: []
   makeSentenceExercises: []
   translateExercises: []
   writingExercises:
-  - {fileID: 11400000, guid: 393e83e9fce8942438e851151b9f14ff, type: 2}
-  - {fileID: 11400000, guid: e38f4b644d80a4b5c87458e7b03df4a0, type: 2}
+  - {fileID: 11400000, guid: b9028112aec1c4720a93f6418c1a9c6d, type: 2}
+  - {fileID: 11400000, guid: 637a7fad6e6ff4c14bdbf0d05659f105, type: 2}
   flashcardDecks: []

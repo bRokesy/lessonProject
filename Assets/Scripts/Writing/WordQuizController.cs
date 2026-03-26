@@ -82,6 +82,8 @@ public class WordQuizController : MonoBehaviour, IExerciseController
         {
             view.SetWrong();
         }
+        
+        ProgressManager.Instance.NextExercise();
     }
 
     IEnumerator NextAfterDelay()

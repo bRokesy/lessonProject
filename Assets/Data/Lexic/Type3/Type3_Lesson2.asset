@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9f9c9b32424d9396a329a50cee3a12, type: 3}
+  m_Name: Type3_Lesson2
+  m_EditorClassIdentifier: Assembly-CSharp::WritingData
+  lessonTitle: "\u0423\u0440\u043E\u043A 2"
+  questions:
+  - correctWords:
+    - "\u043F\u0440\u043E\u0431\u043B\u0435\u043C\u0430"
+    wordClips:
+    - {fileID: 8300000, guid: 7f704698692d7480e88b1d0e4a536c3d, type: 3}
+  - correctWords:
+    - "\u043C\u0438\u043D\u0443\u0442\u0430"
+    wordClips:
+    - {fileID: 8300000, guid: a1153cab242be4c1a9df4fc95578ac98, type: 3}
+  - correctWords:
+    - "\u0447\u0430\u0441"
+    wordClips:
+    - {fileID: 8300000, guid: bdc06fb1be05a46c69bc465f75f086ae, type: 3}
+  - correctWords:
+    - "\u0437\u0430\u043D\u044F\u0442\u0438\u0435"
+    wordClips:
+    - {fileID: 8300000, guid: acfe54abe0c324b11b08acf9fbccca25, type: 3}
+  - correctWords:
+    - "\u043C\u043E\u043C\u0435\u043D\u0442"
+    wordClips:
+    - {fileID: 8300000, guid: 4d5ce1fef7ecd4155a90b55d53a1943b, type: 3}
+  - correctWords:
+    - "\u043F\u0440\u043E\u0434\u0443\u043A\u0442"
+    wordClips:
+    - {fileID: 8300000, guid: 7c0af61f7d956425b9b89e603a303449, type: 3}
+  - correctWords:
+    - "\u0444\u0430\u043A\u0441"
+    wordClips:
+    - {fileID: 8300000, guid: 7e0e1ffb722f24359b39af7a1382b3ce, type: 3}
+  - correctWords:
+    - "\u0434\u0435\u043B\u043E"
+    wordClips:
+    - {fileID: 8300000, guid: 3bff35dc8e606416ea0bd4efd66a84d2, type: 3}
+  - correctWords:
+    - "\u043E\u0442\u0434\u044B\u0445"
+    wordClips:
+    - {fileID: 8300000, guid: 26ef229df07e544329fa80ddb8ba08e5, type: 3}
+  - correctWords:
+    - "\u043F\u043E\u0441\u044B\u043B\u0430\u0442\u044C - \u043F\u043E\u0441\u043B\u0430\u0442\u044C"
+    - "\u043F\u043E\u0441\u044B\u043B\u0430\u0442\u044C \u043F\u043E\u0441\u043B\u0430\u0442\u044C"
+    - "\u043F\u043E\u0441\u044B\u043B\u0430\u0442\u044C,\u043F\u043E\u0441\u043B\u0430\u0442\u044C"
+    - "\u043F\u043E\u0441\u044B\u043B\u0430\u0442\u044C, \u043F\u043E\u0441\u043B\u0430\u0442\u044C"
+    wordClips:
+    - {fileID: 8300000, guid: abbb14f87d6714b3ba1e430dbef85ba9, type: 3}

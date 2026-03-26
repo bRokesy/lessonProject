@@ -17,7 +17,8 @@ public class UIFlashcardFlip : MonoBehaviour
     [SerializeField] private Image picture;
 
     [Header("Example (опционально)")]
-    [SerializeField] private TextMeshProUGUI exampleText;
+    [SerializeField] private TextMeshProUGUI exampleForeignText;
+    [SerializeField] private TextMeshProUGUI exampleTranslationText;
     [SerializeField] private GameObject exampleContainer;
 
     [Header("Flip Settings")]
@@ -46,7 +47,7 @@ public class UIFlashcardFlip : MonoBehaviour
     }
 
     public void SetData(string foreignWord, string translation, Sprite img,
-                        string example = "", AudioClip frontClip = null, AudioClip backClip = null)
+                        string exampleForeign = "", string exampleTranslation = "" , AudioClip frontClip = null, AudioClip backClip = null)
     {
         if (foreignText)     foreignText.text     = foreignWord;
         if (translationText) translationText.text = translation;
@@ -55,12 +56,18 @@ public class UIFlashcardFlip : MonoBehaviour
         frontAudio = frontClip;
         backAudio  = backClip;
 
-        bool hasExample = !string.IsNullOrEmpty(example);
-        if (exampleText) exampleText.text = hasExample ? example : "";
+        bool hasExample = !string.IsNullOrEmpty(exampleTranslation) && !string.IsNullOrEmpty(exampleForeign);
+        if (exampleForeignText) exampleForeignText.text = hasExample ? exampleForeign : "";
+        if (exampleTranslationText) exampleTranslationText.text = hasExample ? exampleTranslation : "";
         if (exampleContainer != null)
+        {
             exampleContainer.SetActive(hasExample);
-        else if (exampleText != null)
-            exampleText.gameObject.SetActive(hasExample);
+        } 
+        else if (exampleForeignText != null && exampleForeignText != null)
+        {
+            exampleForeignText.gameObject.SetActive(hasExample);
+            exampleTranslationText.gameObject.SetActive(hasExample);
+        }
 
         ResetToFront();
     }

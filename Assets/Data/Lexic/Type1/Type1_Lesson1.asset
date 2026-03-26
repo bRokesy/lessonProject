@@ -17,36 +17,77 @@ MonoBehaviour:
   - foreignWord: "\u7533\u8BF7\u8868"
     translation: "\u0430\u043D\u043A\u0435\u0442\u0430"
     image: {fileID: 0}
-    example: 
+    exampleForeign: "\u5F53\u4E00\u4E2A\u4EBA\u60F3\u627E\u5DE5\u4F5C\u65F6\uFF0C\u4ED6\u9700\u8981\u586B\u5199\u7533\u8BF7\u8868\u3002"
+    exampleTranslation: "\u041A\u043E\u0433\u0434\u0430 \u0447\u0435\u043B\u043E\u0432\u0435\u043A
+      \u0445\u043E\u0447\u0435\u0442 \u043D\u0430 \u0440\u0430\u0431\u043E\u0442\u0443,
+      \u0435\u043C\u0443 \u043D\u0443\u0436\u043D\u043E \u043F\u0438\u0441\u0430\u0442\u044C
+      \u0430\u043D\u043A\u0435\u0442\u0443."
+    frontAudio: {fileID: 0}
+    backAudio: {fileID: 8300000, guid: 6bc56cd2640164584acbfb3acac7a789, type: 3}
   - foreignWord: "\u5BF9\u8BDD"
     translation: "\u0434\u0438\u0430\u043B\u043E\u0433"
     image: {fileID: 0}
-    example: 
+    exampleForeign: "\u4ED6\u4EEC\u7684\u5BF9\u8BDD\u5F88\u957F\u3002"
+    exampleTranslation: "\u0418\u0445 \u0434\u0438\u0430\u043B\u043E\u0433 \u0431\u044B\u043B
+      \u043E\u0447\u0435\u043D\u044C \u0434\u043E\u043B\u0433\u0438\u0439.  "
+    frontAudio: {fileID: 0}
+    backAudio: {fileID: 8300000, guid: 6ea468d5806244c5cb6c32b3508dd89d, type: 3}
   - foreignWord: "\u8BFE\u9898"
     translation: "\u0437\u0430\u0434\u0430\u043D\u0438\u0435"
     image: {fileID: 0}
-    example: 
+    exampleForeign: "\u5728\u8BFE\u4E0A\u6211\u4EEC\u505A\u4E86\u4E00\u4E2A\u5F88\u96BE\u7684\u8BFE\u9898\u3002"
+    exampleTranslation: "\u041D\u0430 \u0443\u0440\u043E\u043A\u0435 \u043C\u044B
+      \u0434\u0435\u043B\u0430\u043B\u0438 \u0441\u043B\u043E\u0436\u043D\u043E\u0435
+      \u0437\u0430\u0434\u0430\u043D\u0438\u0435. "
+    frontAudio: {fileID: 0}
+    backAudio: {fileID: 8300000, guid: 4c6e33ff53800443b9044930d80cf0c3, type: 3}
   - foreignWord: "\u6D88\u606F"
     translation: "\u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435"
     image: {fileID: 0}
-    example: 
+    exampleForeign: "\u6211\u5728MAX\u4E0A\u6709\u4E00\u6761\u65B0\u6D88\u606F\u3002"
+    exampleTranslation: "\u0423 \u043C\u0435\u043D\u044F \u043D\u043E\u0432\u043E\u0435
+      \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435 \u0432 MAX. "
+    frontAudio: {fileID: 0}
+    backAudio: {fileID: 8300000, guid: f04da0823847948c489304b9513cef82, type: 3}
   - foreignWord: "\u7AE5\u8BDD"
     translation: "\u0441\u043A\u0430\u0437\u043A\u0430"
     image: {fileID: 0}
-    example: 
+    exampleForeign: "\u7AE5\u5E74\u65F6\u5988\u5988\u7ED9\u6211\u8BB2\u8FC7\u6709\u8DA3\u7684\u7AE5\u8BDD\u3002"
+    exampleTranslation: "\u0412 \u0434\u0435\u0442\u0441\u0442\u0432\u0435 \u043C\u0430\u043C\u0430
+      \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u044B\u0432\u0430\u043B\u0430 \u043C\u043D\u0435
+      \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u044B\u0435 \u0441\u043A\u0430\u0437\u043A\u0438.  "
+    frontAudio: {fileID: 0}
+    backAudio: {fileID: 8300000, guid: f9e821a80652f486f8ac754873cc10d6, type: 3}
   - foreignWord: "\u5EFA\u8BAE"
     translation: "\u0441\u043E\u0432\u0435\u0442"
     image: {fileID: 0}
-    example: 
+    exampleForeign: "\u5976\u5976\u7ED9\u4E86\u6211\u4E00\u4E2A\u975E\u5E38\u597D\u7684\u5EFA\u8BAE\u3002"
+    exampleTranslation: "\u0411\u0430\u0431\u0443\u0448\u043A\u0430 \u0434\u0430\u043B\u0430
+      \u043C\u043D\u0435 \u043E\u0447\u0435\u043D\u044C \u0445\u043E\u0440\u043E\u0448\u0438\u0439
+      \u0441\u043E\u0432\u0435\u0442. "
+    frontAudio: {fileID: 0}
+    backAudio: {fileID: 8300000, guid: a5bdc0c649e92420892dae8e7f1fe11d, type: 3}
   - foreignWord: "\u53E5\u8BDD"
     translation: "\u0444\u0440\u0430\u0437\u0430"
     image: {fileID: 0}
-    example: 
+    exampleForeign: "\u4ED6\u8BF4\u5B8C\u90A3\u53E5\u8BDD\u540E\uFF0C\u6211\u4E5F\u8BF4\u4E86\u6211\u7684\u90A3\u53E5\u3002"
+    exampleTranslation: "\u041F\u043E\u0441\u043B\u0435 \u0435\u0433\u043E \u0444\u0440\u0430\u0437\u044B
+      \u044F \u0441\u043A\u0430\u0437\u0430\u043B \u0441\u0432\u043E\u044E. "
+    frontAudio: {fileID: 0}
+    backAudio: {fileID: 8300000, guid: 0f4207d901bd5439cb72a98dd1c63880, type: 3}
   - foreignWord: "\u79D1\u5B66"
     translation: "\u043D\u0430\u0443\u043A\u0430"
     image: {fileID: 0}
-    example: 
+    exampleForeign: "\u79D1\u5B66\u975E\u5E38\u6709\u8DA3\uFF01"
+    exampleTranslation: "\u041D\u0430\u0443\u043A\u0430 \u2013 \u044D\u0442\u043E
+      \u043E\u0447\u0435\u043D\u044C \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u043E! "
+    frontAudio: {fileID: 0}
+    backAudio: {fileID: 8300000, guid: 8b9aa800054b149269a765ec064df369, type: 3}
   - foreignWord: "\u77ED\u7BC7\u5C0F\u8BF4"
     translation: "\u0440\u0430\u0441\u0441\u043A\u0430\u0437"
     image: {fileID: 0}
-    example: 
+    exampleForeign: "\u77ED\u7BC7\u5C0F\u8BF4\u548C\u7AE5\u8BDD\u662F\u4E24\u79CD\u4E0D\u540C\u7684\u6587\u672C\u3002"
+    exampleTranslation: "\u0420\u0430\u0441\u0441\u043A\u0430\u0437 \u0438 \u0441\u043A\u0430\u0437\u043A\u0438
+      \u2013 \u0434\u0432\u0430 \u0440\u0430\u0437\u043D\u044B\u0445 \u0442\u0435\u043A\u0441\u0442\u0430. "
+    frontAudio: {fileID: 0}
+    backAudio: {fileID: 8300000, guid: 752d97055bad04d7e96519e71a1e97fe, type: 3}

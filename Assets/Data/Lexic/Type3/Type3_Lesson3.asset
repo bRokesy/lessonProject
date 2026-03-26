@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9f9c9b32424d9396a329a50cee3a12, type: 3}
+  m_Name: Type3_Lesson3
+  m_EditorClassIdentifier: Assembly-CSharp::WritingData
+  lessonTitle: "\u0423\u0440\u043E\u043A 2"
+  questions:
+  - correctWords:
+    - "\u0430\u043F\u0435\u043B\u044C\u0441\u0438\u043D"
+    wordClips:
+    - {fileID: 8300000, guid: 00643eb9a6e404e168c8e6815c7895c0, type: 3}
+  - correctWords:
+    - "\u0431\u0443\u0442\u0435\u0440\u0431\u0440\u043E\u0434"
+    wordClips:
+    - {fileID: 8300000, guid: d323fa5693506436d994fe42f6ff9c65, type: 3}
+  - correctWords:
+    - "\u0431\u0443\u0442\u044B\u043B\u043A\u0430"
+    wordClips:
+    - {fileID: 8300000, guid: 08d56242e2ebb401190e1466520a7a99, type: 3}
+  - correctWords:
+    - "\u0438\u0433\u0440\u0443\u0448\u043A\u0430"
+    wordClips:
+    - {fileID: 8300000, guid: 7c35c77ed7b9d4fffa6f130bcdb626f9, type: 3}
+  - correctWords:
+    - "\u043A\u043E\u043D\u0444\u0435\u0442\u0430"
+    wordClips:
+    - {fileID: 8300000, guid: 9ec101e687efd4f28a1ea031aeb79b43, type: 3}
+  - correctWords:
+    - "\u043A\u0443\u0440\u0442\u043A\u0430"
+    wordClips:
+    - {fileID: 8300000, guid: c77a482ec2a504d2d8a0aae9e4cc705c, type: 3}
+  - correctWords:
+    - "\u043B\u0435\u043A\u0430\u0440\u0441\u0442\u0432\u043E"
+    wordClips:
+    - {fileID: 8300000, guid: a780bd76e74fe4599a71989e69717599, type: 3}
+  - correctWords:
+    - "\u0442\u043E\u0440\u0442"
+    wordClips:
+    - {fileID: 8300000, guid: 78040bd14b1ad4def891414c6c2ff054, type: 3}
+  - correctWords:
+    - "\u0432\u0438\u0434\u0435\u043E"
+    wordClips:
+    - {fileID: 8300000, guid: a3f936f3c546042e897415e357febaa7, type: 3}
+  - correctWords:
+    - "\u0444\u043E\u0442\u043E\u0430\u043F\u043F\u0430\u0440\u0430\u0442"
+    wordClips:
+    - {fileID: 8300000, guid: 2b58304ebfd76473db73b8c3c12afff2, type: 3}

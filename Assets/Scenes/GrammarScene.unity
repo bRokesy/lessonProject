@@ -3925,7 +3925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIFlashcardSpawner
   deck: {fileID: 0}
-  cardPrefab: {fileID: 8751144443824589832, guid: b51e9ec61f1987943b1f313689019a35, type: 3}
+  cardPrefab: {fileID: 8751144443824589832, guid: 6e21c4397253f40bea34ee5f0391fb99, type: 3}
   contentParent: {fileID: 32349695}
 --- !u!4 &1446903363
 Transform:
@@ -5391,6 +5391,7 @@ MonoBehaviour:
   progressText: {fileID: 286611041}
   questionImage: {fileID: 1918843967}
   imageContainer: {fileID: 0}
+  audioButton: {fileID: 0}
 --- !u!224 &1792707358
 RectTransform:
   m_ObjectHideFlags: 0
