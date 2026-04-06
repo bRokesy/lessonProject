@@ -111,9 +111,15 @@ public class FillBlankManager : MonoBehaviour, IExerciseController
             if (slot.IsCorrect()) correct++;
 
         bool allCorrect = correct == spawnedSlots.Count;
-        feedbackText.text  = allCorrect ? "Правильно!" : $"Правильно {correct} из {spawnedSlots.Count}";
 
-        if (allCorrect) StartCoroutine(NextAfterDelay());
+        if (allCorrect) { 
+            StartCoroutine(NextAfterDelay());
+        } else
+        {
+            ResetExercise();
+        }
+
+        feedbackText.text  = allCorrect ? "Правильно!" : $"Правильно {correct} из {spawnedSlots.Count}";
     }
 
     IEnumerator NextAfterDelay()

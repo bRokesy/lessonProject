@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ProgressManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class ProgressManager : MonoBehaviour
     public TextMeshProUGUI progressLabel;
     public Button nextButton;
     public Button prevButton;
+    public Slider progressBar;
 
     private int currentLesson   = 0;
     private int currentExercise = 0;
@@ -37,6 +39,8 @@ public class ProgressManager : MonoBehaviour
 
         currentLesson   = Mathf.Clamp(PlayerPrefs.GetInt(PREF_LESSON, 0), 0, Mathf.Max(0, lessons.Count - 1));
         currentExercise = PlayerPrefs.GetInt(PREF_EXERCISE, 0);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Start()
@@ -73,9 +77,7 @@ public class ProgressManager : MonoBehaviour
 
     IEnumerator NextExerciseDelayed(float delay)
     {
-        // Заблокировать кнопку на время задержки
         if (nextButton) nextButton.interactable = false;
-
         yield return new WaitForSeconds(delay);
 
         var lesson = lessons[currentLesson];
@@ -120,7 +122,10 @@ public class ProgressManager : MonoBehaviour
     {
         scenePanels = panels;
         if (lessons != null && lessons.Count > 0)
-            scenePanels.ShowOnly(lessons[currentLesson].exerciseType);
+        {
+            var entry = lessons[currentLesson].GetExercise(currentExercise);
+            if (entry != null) scenePanels.ShowOnly(entry.type);
+        }
     }
 
     // ─── Load ─────────────────────────────────────────────────────────────────
@@ -133,44 +138,54 @@ public class ProgressManager : MonoBehaviour
             return;
         }
 
-        // Дать текущему контроллеру очистить UI перед уходом
         NotifyLeave();
 
         var lesson = lessons[currentLesson];
         currentExercise = Mathf.Clamp(currentExercise, 0, Mathf.Max(0, lesson.Count - 1));
 
+        var entry = lesson.GetExercise(currentExercise);
+        if (entry == null)
+        {
+            Debug.LogWarning($"ProgressManager: упражнение {currentExercise} не найдено в {lesson.lessonName}");
+            return;
+        }
+
+        if (!entry.IsValid())
+        {
+            Debug.LogWarning($"ProgressManager: поле данных не заполнено для типа {entry.type} в {lesson.lessonName}[{currentExercise}]");
+            return;
+        }
+
+        CurrentLessonTitle = lesson.lessonName;
         UpdateUI(lesson);
-        scenePanels?.ShowOnly(lesson.exerciseType);
+        scenePanels?.ShowOnly(entry.type);
 
-        Debug.Log($"ProgressManager: {lesson.lessonName}, упражнение {currentExercise + 1}/{lesson.Count}, тип: {lesson.exerciseType}");
+        Debug.Log($"ProgressManager: {lesson.lessonName} [{currentExercise + 1}/{lesson.Count}] тип: {entry.type}");
 
-        switch (lesson.exerciseType)
+        switch (entry.type)
         {
             case LessonData.ExerciseType.FillBlank:
-                FindAndLoad<FillBlankManager>(m => m.LoadExercise(lesson.fillBlankExercises[currentExercise]));
+                FindAndLoad<FillBlankManager>(m => m.LoadExercise(entry.fillBlank));
                 break;
             case LessonData.ExerciseType.MakeSentence:
-                FindAndLoad<MakeSentenceManager>(m => m.LoadExercise(lesson.makeSentenceExercises[currentExercise]));
+                FindAndLoad<MakeSentenceManager>(m => m.LoadExercise(entry.makeSentence));
                 break;
             case LessonData.ExerciseType.Translate:
-                FindAndLoad<TranslationQuizManager>(m => m.LoadExercise(lesson.translateExercises[currentExercise]));
+                FindAndLoad<TranslationQuizManager>(m => m.LoadExercise(entry.translate));
                 break;
             case LessonData.ExerciseType.Writing:
-                FindAndLoad<WordQuizController>(m => m.LoadExercise(lesson.writingExercises[currentExercise]));
+                FindAndLoad<WordQuizController>(m => m.LoadExercise(entry.writing));
                 break;
             case LessonData.ExerciseType.Flashcards:
-                FindAndLoad<UIFlashcardSpawner>(m => m.LoadDeck(lesson.flashcardDecks[currentExercise]));
+                FindAndLoad<UIFlashcardSpawner>(m => m.LoadDeck(entry.flashcards));
                 break;
         }
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
 
-    /// <summary>Уведомить текущий контроллер об уходе с упражнения.</summary>
     void NotifyLeave()
     {
-        var controller = FindFirstObjectByType<MonoBehaviour>();
-        // Ищем все IExerciseController в сцене и вызываем OnExerciseLeave
         foreach (var mono in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None))
         {
             if (mono is IExerciseController ec)
@@ -191,6 +206,11 @@ public class ProgressManager : MonoBehaviour
     {
         if (progressLabel)
             progressLabel.text = $"{lesson.lessonName}  •  {currentExercise + 1} / {lesson.Count}";
+        if (progressBar)
+        {
+            progressBar.maxValue = lesson.Count;
+            progressBar.value = currentExercise + 1;
+        }
 
         if (prevButton) prevButton.interactable = !(currentLesson == 0 && currentExercise == 0);
         if (nextButton) nextButton.interactable = !(currentLesson == lessons.Count - 1 && currentExercise == lesson.Count - 1);
@@ -207,5 +227,16 @@ public class ProgressManager : MonoBehaviour
     {
         if (progressLabel) progressLabel.text = "Все уроки пройдены!";
         if (nextButton)    nextButton.interactable = false;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        scenePanels = null; // сбросить — в новой сцене будет новый RegisterPanels
+        StartCoroutine(LoadAfterFrame());
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

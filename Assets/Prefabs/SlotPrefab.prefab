@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2540173202155441431}
   - component: {fileID: 481242632619336068}
   - component: {fileID: 5763453716070679491}
+  - component: {fileID: -4009672177527578202}
   m_Layer: 5
   m_Name: SlotPrefab
   m_TagString: Untagged
@@ -118,6 +119,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &-4009672177527578202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695628959073400392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
+  radius: 16
+  image: {fileID: 2540173202155441431}
 --- !u!1 &771823260495745401
 GameObject:
   m_ObjectHideFlags: 0
