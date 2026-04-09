@@ -135,6 +135,8 @@ public class ProgressManager : MonoBehaviour
     // ─── Load ─────────────────────────────────────────────────────────────────
     public void LoadCurrent()
     {
+        if (SceneManager.GetActiveScene().name == "MainMenu") return;
+
         if (lessons == null || lessons.Count == 0)
         {
             Debug.LogWarning("ProgressManager: список lessons пустой!");
@@ -161,7 +163,10 @@ public class ProgressManager : MonoBehaviour
 
         if (!progressBar) progressBar  = GameObject.Find("ProgressBar")?.GetComponent<Slider>();
         if (!progressLabel) progressLabel = GameObject.Find("ProgressText")?.GetComponent<TextMeshProUGUI>();
-        if (!nextButton) nextButton = GameObject.Find("NextButton")?.GetComponent<Button>();
+        if (!nextButton) {
+            nextButton = GameObject.Find("NextButton")?.GetComponent<Button>();
+            nextButton.gameObject.GetComponent<Image>().enabled = true;
+        }
 
         CurrentLessonTitle = lesson.lessonName;
         scenePanels?.ShowOnly(entry.type);
@@ -226,7 +231,7 @@ public class ProgressManager : MonoBehaviour
         if (nextButton != null)
         {
             bool isFlashcards = lesson.exerciseType == LessonData.ExerciseType.Flashcards;
-            nextButton.gameObject.SetActive(!isFlashcards);
+            nextButton.gameObject.SetActive(isFlashcards);
 
             print(lesson.exerciseType);
             print(isFlashcards);

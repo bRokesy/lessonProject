@@ -118,14 +118,13 @@ public class FillBlankManager : MonoBehaviour, IExerciseController
         if (allCorrect)
         {
             // checkButton.interactable = false;
+            ProgressManager.Instance.ShowNextButton();
         } else
         {
             ResetExercise();
         }
 
-        feedbackText.text  = allCorrect ? "Правильно!" : $"Правильно {correct} из {spawnedSlots.Count}";
-
-        ProgressManager.Instance.ShowNextButton();
+        feedbackText.text  = allCorrect ? "没错!" : $"答对了 {correct} 题（共 {spawnedSlots.Count} 题）";
     }
 
     IEnumerator NextAfterDelay()

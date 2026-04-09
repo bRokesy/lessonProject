@@ -83,10 +83,10 @@ public class MakeSentenceManager : MonoBehaviour, IExerciseController
 
         foreach (string sentence in currentData.questions[currentIndex].correctSentences)
         {
-            if (sentence == playerSentence) { correct = true; break; }
+            if (sentence.ToLower() == playerSentence) { correct = true; break; }
         }
 
-        feedbackText.text  = correct ? "Правильно!" : "Попробуйте ещё раз";
+        feedbackText.text  = correct ? "没错!" : "再试一遍";
 
         if (correct) StartCoroutine(NextAfterDelay());
     }

@@ -18,7 +18,7 @@ MonoBehaviour:
   - taskTitle: "\u8BF7\u7528\u4E0B\u9762\u7684\u8BCD\u9020\u53E5:"
     hint: 
     shuffledWords:
-    - "\u0432\u0447\u0435\u0440"
+    - "\u0432\u0447\u0435\u0440\u0430"
     - "\u043C\u044B"
     - "\u0438"
     - "\u0441\u0430\u043B\u0430\u0442"

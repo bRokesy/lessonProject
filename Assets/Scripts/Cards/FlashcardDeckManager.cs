@@ -38,11 +38,11 @@ public class FlashcardDeckManager : MonoBehaviour
         if (count == 0) return;
         if (currentIndex + 1 >= count)
         {
-            ProgressManager.Instance.NextExerciseNoDelay();
+            // ProgressManager.Instance.NextExerciseNoDelay();
         }
 
         currentIndex = Mathf.Min(currentIndex + 1, count - 1);
-        
+
         ShowCard(currentIndex);
     }
 
@@ -54,7 +54,7 @@ public class FlashcardDeckManager : MonoBehaviour
 
         if (currentIndex == 0)
         {
-            ProgressManager.Instance.PrevExercise();
+            // ProgressManager.Instance.PrevExercise();
         }
 
         ShowCard(currentIndex);
