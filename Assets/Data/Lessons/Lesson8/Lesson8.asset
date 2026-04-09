@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a17f86819e15944159061dfe4a8ff9b7, type: 3}
+  m_Name: Lesson8
+  m_EditorClassIdentifier: Assembly-CSharp::LessonData
+  lessonName: "\u0423\u0440\u043E\u043A 8"
+  exercises:
+  - type: 4
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 11400000, guid: 49cbdf9186e2a5e4099802d13f41e98a, type: 2}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: 3b7e95b32826def428ca5fba444e1189, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: 280e01db6df5a7f4691dc9a0db8d6700, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 2
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 11400000, guid: 3dd7ecfefcf29fc46acf0fdf448e8683, type: 2}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 1
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 11400000, guid: 8f94b1a79c6920042b69cb0ab0a82423, type: 2}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: 756af6b8a0fd50b4f944c3434ebeb698, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: 4e978c9a0c46d014ab7c5bc769c3bf1f, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 2
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 11400000, guid: 0db90da564a4ae447b8a21010cf4ff45, type: 2}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 2
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 11400000, guid: 14a92e6764df0694cb143f70bf05fe7a, type: 2}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: 899f7ca0345ed194f886b6fc96fd282b, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: c00c4934b2b198f43815d8445a38d3ad, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: 664b1b3f1e0ef9b42bcafdf447086eba, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 1
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 11400000, guid: c98839b2b98fbe44b9d4f1055a1a3753, type: 2}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 2
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 11400000, guid: c9c1a7f2aa3aa77438a3542448665120, type: 2}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: ca3ff1c5a44bb46458bfda643447db53, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 1
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 11400000, guid: 40d29ddf7e9742c49903d11ff92088b3, type: 2}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: fb0a0d07f3698a745b659a740fcd32e0, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: 661286971b6f9bc47af0067df0430080, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 2
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 11400000, guid: a488ddce738d468478de21344a00be99, type: 2}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 1
+    fillBlank: {fileID: 0}
+    makeSentence: {fileID: 11400000, guid: e544aed11f8c0724ab22ea93b88c89b3, type: 2}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
+  - type: 0
+    fillBlank: {fileID: 11400000, guid: 6b5c0f449b10ba1458c07a132df18057, type: 2}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 0}
+    writing: {fileID: 0}
+    flashcards: {fileID: 0}
