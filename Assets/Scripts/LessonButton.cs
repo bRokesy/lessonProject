@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
 
-public class LessonButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
+public class LessonButton : MonoBehaviour
 {
     public LessonData lessonData;
 
@@ -15,8 +14,4 @@ public class LessonButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
         SceneManager.LoadScene("LessonScene");
     }
-
-        public void OnPointerDown(PointerEventData e) => Debug.Log("DOWN");
-    public void OnPointerUp(PointerEventData e) => Debug.Log("UP");
-    public void OnPointerClick(PointerEventData e) => Debug.Log("CLICK");
 }

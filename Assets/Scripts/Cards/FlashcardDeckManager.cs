@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class FlashcardDeckManager : MonoBehaviour
 {
@@ -35,7 +36,13 @@ public class FlashcardDeckManager : MonoBehaviour
     {
         int count = CardCount();
         if (count == 0) return;
+        if (currentIndex + 1 >= count)
+        {
+            ProgressManager.Instance.NextExerciseNoDelay();
+        }
+
         currentIndex = Mathf.Min(currentIndex + 1, count - 1);
+        
         ShowCard(currentIndex);
     }
 
@@ -44,6 +51,12 @@ public class FlashcardDeckManager : MonoBehaviour
         int count = CardCount();
         if (count == 0) return;
         currentIndex = Mathf.Max(currentIndex - 1, 0);
+
+        if (currentIndex == 0)
+        {
+            ProgressManager.Instance.PrevExercise();
+        }
+
         ShowCard(currentIndex);
     }
 
@@ -70,8 +83,8 @@ public class FlashcardDeckManager : MonoBehaviour
         if (counterLabel)
             counterLabel.text = $"{index + 1} / {count}";
 
-        if (previousCardButton) previousCardButton.interactable = index > 0;
-        if (nextCardButton)     nextCardButton.interactable     = index < count - 1;
+        // if (previousCardButton) previousCardButton.interactable = index > 0;
+        // if (nextCardButton) nextCardButton.interactable     = index < count - 1; 
     }
 
     int CardCount() => spawner?.ContentParent != null ? spawner.ContentParent.childCount : 0;

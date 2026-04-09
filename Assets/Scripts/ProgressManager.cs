@@ -26,9 +26,6 @@ public class ProgressManager : MonoBehaviour
     private int currentExercise = 0;
     private SceneUIPanels scenePanels;
 
-    const string PREF_LESSON   = "progress_lesson";
-    const string PREF_EXERCISE = "progress_exercise";
-
     // ─── Lifecycle ────────────────────────────────────────────────────────────
 
     void Awake()
@@ -36,9 +33,6 @@ public class ProgressManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        currentLesson   = Mathf.Clamp(PlayerPrefs.GetInt(PREF_LESSON, 0), 0, Mathf.Max(0, lessons.Count - 1));
-        currentExercise = PlayerPrefs.GetInt(PREF_EXERCISE, 0);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -73,6 +67,16 @@ public class ProgressManager : MonoBehaviour
     public void NextExerciseNoDelay()
     {
         StartCoroutine(NextExerciseDelayed(0f));
+    }
+
+    /// <summary>
+    /// Вызывается менеджерами когда упражнение завершено.
+    /// Показывает NextButton вместо автоперехода.
+    /// </summary>
+    public void ShowNextButton()
+    {
+        nextButton.gameObject.SetActive(true);
+        nextButton.interactable = true;
     }
 
     IEnumerator NextExerciseDelayed(float delay)
@@ -129,7 +133,6 @@ public class ProgressManager : MonoBehaviour
     }
 
     // ─── Load ─────────────────────────────────────────────────────────────────
-
     public void LoadCurrent()
     {
         if (lessons == null || lessons.Count == 0)
@@ -156,8 +159,11 @@ public class ProgressManager : MonoBehaviour
             return;
         }
 
+        if (!progressBar) progressBar  = GameObject.Find("ProgressBar")?.GetComponent<Slider>();
+        if (!progressLabel) progressLabel = GameObject.Find("ProgressText")?.GetComponent<TextMeshProUGUI>();
+        if (!nextButton) nextButton = GameObject.Find("NextButton")?.GetComponent<Button>();
+
         CurrentLessonTitle = lesson.lessonName;
-        UpdateUI(lesson);
         scenePanels?.ShowOnly(entry.type);
 
         Debug.Log($"ProgressManager: {lesson.lessonName} [{currentExercise + 1}/{lesson.Count}] тип: {entry.type}");
@@ -180,6 +186,8 @@ public class ProgressManager : MonoBehaviour
                 FindAndLoad<UIFlashcardSpawner>(m => m.LoadDeck(entry.flashcards));
                 break;
         }
+
+        UpdateUI(lesson, entry.type);
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
@@ -202,24 +210,31 @@ public class ProgressManager : MonoBehaviour
             Debug.LogWarning($"ProgressManager: {typeof(T).Name} не найден в сцене.");
     }
 
-    void UpdateUI(LessonData lesson)
+    void UpdateUI(LessonData lesson, LessonData.ExerciseType type)
     {
         if (progressLabel)
             progressLabel.text = $"{lesson.lessonName}  •  {currentExercise + 1} / {lesson.Count}";
         if (progressBar)
         {
             progressBar.maxValue = lesson.Count;
-            progressBar.value = currentExercise + 1;
+            progressBar.value    = currentExercise + 1;
         }
 
         if (prevButton) prevButton.interactable = !(currentLesson == 0 && currentExercise == 0);
-        if (nextButton) nextButton.interactable = !(currentLesson == lessons.Count - 1 && currentExercise == lesson.Count - 1);
+
+        // NextButton: для Flashcards всегда видна, для остальных скрыта до завершения
+        if (nextButton != null)
+        {
+            bool isFlashcards = lesson.exerciseType == LessonData.ExerciseType.Flashcards;
+            nextButton.gameObject.SetActive(!isFlashcards);
+
+            print(lesson.exerciseType);
+            print(isFlashcards);
+        }
     }
 
     void SaveProgress()
     {
-        PlayerPrefs.SetInt(PREF_LESSON,   currentLesson);
-        PlayerPrefs.SetInt(PREF_EXERCISE, currentExercise);
         PlayerPrefs.Save();
     }
 
@@ -227,11 +242,14 @@ public class ProgressManager : MonoBehaviour
     {
         if (progressLabel) progressLabel.text = "Все уроки пройдены!";
         if (nextButton)    nextButton.interactable = false;
+
+        Destroy(gameObject);
+        SceneManager.LoadScene("MainMenu");
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        scenePanels = null; // сбросить — в новой сцене будет новый RegisterPanels
+        BindButtons();
         StartCoroutine(LoadAfterFrame());
     }
 

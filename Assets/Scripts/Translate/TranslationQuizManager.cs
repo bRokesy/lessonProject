@@ -137,7 +137,8 @@ public class TranslationQuizManager : MonoBehaviour, IExerciseController
                 btn.SetCorrect();
         }
 
-        StartCoroutine(NextAfterDelay());
+        Finish();
+        // StartCoroutine(NextAfterDelay());
     }
 
     private IEnumerator NextAfterDelay()
@@ -147,18 +148,13 @@ public class TranslationQuizManager : MonoBehaviour, IExerciseController
         index++;
         ShowQuestion();
     }
-
-    private IEnumerator DestroyAfterDelay()
-    {
-        yield return new WaitForSeconds(delayBeforeNext);
-        ProgressManager.Instance.NextExercise();
-    }
-
+    
     private void Finish()
     {
-        StartCoroutine(DestroyAfterDelay());
         if (progressText && currentData != null)
             progressText.text = $"{currentData.questions.Count}/{currentData.questions.Count}";
+        
+        ProgressManager.Instance.ShowNextButton();
     }
 
     private void ClearOptions()

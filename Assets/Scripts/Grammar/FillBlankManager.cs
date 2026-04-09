@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class FillBlankManager : MonoBehaviour, IExerciseController
 {
@@ -12,6 +13,8 @@ public class FillBlankManager : MonoBehaviour, IExerciseController
     public TextMeshProUGUI taskLabel;
     public TextMeshProUGUI hintLabel;
     public Button checkButton;
+    public Image checkButtonImage;
+    public TextMeshProUGUI checkButtonText;
     public Button resetButton;
     public TextMeshProUGUI feedbackText;
 
@@ -112,14 +115,17 @@ public class FillBlankManager : MonoBehaviour, IExerciseController
 
         bool allCorrect = correct == spawnedSlots.Count;
 
-        if (allCorrect) { 
-            StartCoroutine(NextAfterDelay());
+        if (allCorrect)
+        {
+            // checkButton.interactable = false;
         } else
         {
             ResetExercise();
         }
 
         feedbackText.text  = allCorrect ? "Правильно!" : $"Правильно {correct} из {spawnedSlots.Count}";
+
+        ProgressManager.Instance.ShowNextButton();
     }
 
     IEnumerator NextAfterDelay()
@@ -130,7 +136,7 @@ public class FillBlankManager : MonoBehaviour, IExerciseController
         if (currentIndex < currentData.questions.Count)
             ShowQuestion();
         else
-            ProgressManager.Instance.NextExercise();
+            ProgressManager.Instance.ShowNextButton();
     }
 
     public void ResetExercise()

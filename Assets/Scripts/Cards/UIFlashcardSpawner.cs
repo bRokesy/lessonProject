@@ -8,6 +8,7 @@ public class UIFlashcardSpawner : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private GameObject grammarCardPrefab;
     [SerializeField] private Transform contentParent;
 
     public Transform ContentParent => contentParent;
@@ -41,7 +42,16 @@ public class UIFlashcardSpawner : MonoBehaviour
 
         foreach (var entry in deck.cards)
         {
-            var card = Instantiate(cardPrefab, contentParent);
+            GameObject card;
+            
+            if (deck.isGrammarCards)
+            {
+                card = Instantiate(grammarCardPrefab, contentParent);
+            } else
+            {
+                card = Instantiate(cardPrefab, contentParent);   
+            }
+
             card.SetActive(false);
             card.GetComponent<UIFlashcardFlip>()?.SetData(
                 entry.foreignWord,

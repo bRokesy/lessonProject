@@ -83,7 +83,7 @@ public class WordQuizController : MonoBehaviour, IExerciseController
             view.SetWrong();
         }
         
-        ProgressManager.Instance.NextExercise();
+        ProgressManager.Instance.ShowNextButton();
     }
 
     IEnumerator NextAfterDelay()
@@ -94,7 +94,7 @@ public class WordQuizController : MonoBehaviour, IExerciseController
         if (currentIndex < currentData.questions.Count)
             ShowQuestion();
         else
-            ProgressManager.Instance.NextExercise();
+            ProgressManager.Instance.ShowNextButton();
     }
 
     string Normalize(string input) =>

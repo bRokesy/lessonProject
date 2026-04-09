@@ -99,7 +99,7 @@ public class MakeSentenceManager : MonoBehaviour, IExerciseController
         if (currentIndex < currentData.questions.Count)
             ShowQuestion();
         else
-            ProgressManager.Instance.NextExercise();
+            ProgressManager.Instance.ShowNextButton();
     }
 
     public void ResetExercise()
