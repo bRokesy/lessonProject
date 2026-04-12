@@ -22,5 +22,5 @@ MonoBehaviour:
     - "\u0442\u0430\u043D\u0446\u0435\u0432\u0430\u0442\u044C"
     - "\u043F\u0435\u0442\u044C"
     - "\u0433\u0443\u043B\u044F\u0442\u044C"
-    image: {fileID: 0}
+    image: {fileID: -619195175340608018, guid: 788ca989f56efa94bb791f690c22a7ad, type: 3}
     audio: {fileID: 0}
