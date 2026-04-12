@@ -22,7 +22,7 @@ MonoBehaviour:
     - "\u0441\u0430\u0434\u0438\u0442\u044C\u0441\u044F"
     - "\u0445\u043E\u0434\u0438\u0442\u044C"
     - "\u0438\u0434\u0442\u0438"
-    image: {fileID: 21300000, guid: 2517e2aca698e5c4fb1028325c4e026f, type: 3}
+    image: {fileID: -6891530263384190603, guid: a25b9b695f9a9184dbb89d5cd20fbc78, type: 3}
     audio: {fileID: 0}
   - foreignWord: 
     correctTranslation: 
