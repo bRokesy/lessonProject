@@ -81,7 +81,7 @@ public class ProgressManager : MonoBehaviour
 
     IEnumerator NextExerciseDelayed(float delay)
     {
-        if (nextButton) nextButton.interactable = false;
+        if (nextButton) nextButton.gameObject.SetActive(false);
         yield return new WaitForSeconds(delay);
 
         var lesson = lessons[currentLesson];
@@ -230,7 +230,7 @@ public class ProgressManager : MonoBehaviour
         // NextButton: для Flashcards всегда видна, для остальных скрыта до завершения
         if (nextButton != null)
         {
-            bool isFlashcards = lesson.exerciseType == LessonData.ExerciseType.Flashcards;
+            bool isFlashcards = type == LessonData.ExerciseType.Flashcards;
             nextButton.gameObject.SetActive(isFlashcards);
 
             print(lesson.exerciseType);
@@ -245,7 +245,7 @@ public class ProgressManager : MonoBehaviour
 
     void OnAllComplete()
     {
-        if (progressLabel) progressLabel.text = "Все уроки пройдены!";
+        if (progressLabel) progressLabel.text = "所有课程已完成!";
         if (nextButton)    nextButton.interactable = false;
 
         Destroy(gameObject);

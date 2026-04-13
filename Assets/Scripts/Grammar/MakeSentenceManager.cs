@@ -42,8 +42,8 @@ public class MakeSentenceManager : MonoBehaviour, IExerciseController
         var q = currentData.questions[currentIndex];
 
         feedbackText.text = "";
-        taskLabel.text    = q.taskTitle;
-        hintLabel.text    = q.hint;
+        // taskLabel.text    = q.taskTitle;
+        // hintLabel.text    = q.hint;
 
         ClearAll();
 
