@@ -116,10 +116,10 @@ MonoBehaviour:
     translate: {fileID: 11400000, guid: d28bc2770aed5af408f5cddb822af08c, type: 2}
     writing: {fileID: 0}
     flashcards: {fileID: 0}
-  - type: 1
+  - type: 2
     fillBlank: {fileID: 0}
-    makeSentence: {fileID: 11400000, guid: 54cefc5a5f6f8c14b83e842670d7d195, type: 2}
-    translate: {fileID: 0}
+    makeSentence: {fileID: 0}
+    translate: {fileID: 11400000, guid: 54cefc5a5f6f8c14b83e842670d7d195, type: 2}
     writing: {fileID: 0}
     flashcards: {fileID: 0}
   - type: 0
